@@ -1,4 +1,6 @@
-put 1
-put 3
+put  1
+put a3
+# some comment
 add
+asd12
 print
