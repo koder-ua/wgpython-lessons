@@ -6,7 +6,7 @@
 
 
 def flatten(items):
-    def list_items(elems):
+    def list_items(elems): # зачем вложенная функция?
         for item in elems:
             if hasattr(item, '__iter__'):
                 for sub_item in flatten(item):
