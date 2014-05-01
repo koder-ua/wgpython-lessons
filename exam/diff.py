@@ -15,6 +15,7 @@
 # или папками. Содержимое файлов и атрибуты сравнивать не надо (за исключением
 # st_mtime, что описанно выше и для чего применяется '*').
 
+
 from filecmp import dircmp
 
 first_dir = "path1"
@@ -24,19 +25,20 @@ second_dir = "path2"
 def diff(left, right):
     dcmp = dircmp(left, right)
 
-    def compare(dcmp):
+    def compare(dcmp): # зачем вложенная функция?
 
         for name in dcmp.left_only:
-            print ("-", name)
+            print ("-", name) # функция должна не печатать, а возвращать данные.
+                              # в это месте следовало использовать yield
 
         for name in dcmp.right_only:
-            print ("+", name)
+            print ("+", name) # не генерируются файлы для вложенных папок
 
         for name in dcmp.diff_files:
-            print ("*", name)
+            print ("*", name)  # сравнение, используемое в filecmp не подходит под условие задачи
 
         for sub_dcmp in dcmp.subdirs.values():
-            compare(sub_dcmp)
+            compare(sub_dcmp)  # тут должен быть соответствующий код
 
     compare(dcmp)
 
